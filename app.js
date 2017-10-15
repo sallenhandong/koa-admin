@@ -10,6 +10,7 @@ const index = require('./routes/index')
 const users = require('./routes/users')
 const config = require('./config')
 const mongodb = require('./mongodb')
+
 // error handler
 onerror(app)
 
@@ -35,6 +36,8 @@ app.use(async (ctx, next) => {
  await next()
   if (ctx.status === 404) ctx.body = { code: 0, message: '无效的api请求'}  
 })
+
+
 
 // routes
 app.use(index.routes(), index.allowedMethods())

@@ -13,7 +13,8 @@ const router = new Router({
 // Api
 router
 
-		.post('/login', controller.login.login) // 登录
+		.get('/login', controller.login.login) // 登录
+		.get('/admin',controller.login.admin)
 
 // // music
 // app.get('/music/pic/:pic_id', controller.music.pic);
