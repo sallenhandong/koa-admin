@@ -1,9 +1,6 @@
-# nodejs_koa_blog_admin
+#koa-admin
 
-TODO
-
-面板数据统计
-
-Google 统计服务
-
-https
+#ON GOING
+nodejs 博客项目，前端+vue
+目前在写后端 koa + mongose 
+欢迎fork
