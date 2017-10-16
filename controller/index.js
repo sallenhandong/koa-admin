@@ -4,3 +4,4 @@
 exports.login = require('./loginController')
 exports.admin = require('./loginController')
 exports.captcha = require('./loginController')
+exports.register = require('./loginController')

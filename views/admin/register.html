@@ -56,15 +56,15 @@
 							<input type="number" name="phone" id="phone" lay-verify="title" autocomplete="off" placeholder="请输入电话" class="layui-input">
 						</div>
 					</div>
-					<div class="layui-form-item">
+				<!-- 	<div class="layui-form-item">
 						<label class="layui-form-label">验证码</label>
 						<div class="layui-input-block">
-							<!--图片验证码，点击图片实现刷新-->
+							
 							<img src="http://localhost:3000/captcha"  style="float: right;width: 40%;height: 38px;cursor:pointer" onclick="this.src='http://localhost:3000/captcha?d='+Math.random();">
 							<input type="text" name="captcha" id="captcha" style="width: 60%" autocomplete="off" placeholder="请输入验证码" class="layui-input">
 						</div>
 
-					</div>
+					</div> -->
 					<div class="layui-form-item">
 						<label class="layui-form-label"></label>
 						<div class="layui-input-block">
@@ -111,18 +111,10 @@
 						layer.alert('请将信息填写完整', {icon: 2});
 						return false;
 					}
-					$.post("http://localhost:3000/register",{username:username,password:password,captcha:captcha,phone:phone,realname:realname},function(result){
-						if(result.status==="captcha error"){
-							layer.alert('验证码错误。点击图片刷新', {icon: 2});
-						}else if(result.status==="error"){
-							layer.alert('系统错误', {icon: 2});
-						}else if(result.status==="not exist"){
-							layer.alert('用户不存在', {icon: 2});
-						}else{
-							layer.alert('注册成功,等待其他管理员验证成功后才可登录。', {icon: 1});
+					$.post("http://localhost:8000/regist",{username:username,password:password},function(result){
 
-
-						}
+						
+							layer.alert(result.message, {icon: 1});
 
 					});
 					//这句话的意思不会刷新当前页面。避免清空内容

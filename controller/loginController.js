@@ -6,7 +6,7 @@
 
 const Login = require("../model/loginModel")
 const config = require("../config")
-const fs = require('fs.promised')
+const fs = require('fs-extra')
 const {
   handleRequest,
   handleError,
@@ -15,52 +15,9 @@ const {
 } = require("../utils/handle")
 
 const jwt = require("jsonwebtoken")
-const authControll = { login: {} ,admin: {}, captcha: {}}
+const authControll = { login: {} ,admin: {}, captcha: {},register: {}}
 //图片验证码
 const svgCaptcha = require('svg-captcha');
-//登录
-// authControll.login.POST = async ctx => {
-// 	const {
-// 		username,
-// 		password
-// 	} = ctx.request.body
-
-// 	console.log(username + "username");
-
-// 	const auth = await Login
-// 				.findOne({username})
-// 				.catch(err=> ctx.throw(500,'服务器内部错误'))
-
-// 	if (auth) {
-
-// 		if (auth.password == password) {
-
-// 			handleSuccess({
-// 				ctx,
-// 				result: {
-// 					token: "123123"
-// 				},
-// 				message: "登录成功"
-// 			})
-
-
-// 		} else {
-// 			handleError({
-// 				ctx,
-// 				message: "密码错误"
-// 			})
-
-// 		}
-
-// 	} else {
-
-// 		handleError({
-// 			ctx,
-// 			message: "账号不存在"
-// 		})
-// 	}
-
-// }
 //进入登录页面
 authControll.login.GET = async ctx => {
 
@@ -69,22 +26,52 @@ authControll.login.GET = async ctx => {
 	ctx.body = contentText
 }
 
+//判断登录
+authControll.login.POST = async ctx => {
+const {
+      username,
+      password
+    } = ctx.request.body
+
+  const auth = await Login
+    .findOne({
+      username
+    })
+    .catch(err => ctx.throw(500, '服务器内部错误'))
+  if (auth) {
+
+    if (auth.password == password) {
+
+      handleSuccess({
+        ctx,
+        message: "登录成功"
+      });
+
+    } else {
+      handleError({
+        ctx,
+        message: "密码错误"
+      })
+
+    }
+
+  } else {
+    handleError({
+      ctx,
+      message: "账号不存在"
+    })
+  }
+
+}
+
 
 authControll.admin.GET = async ctx => {
 
-	// let isSuper = '普通管理员'
-	// if (ctx.session.user.status === '2') {
-	// 	isSuper = '超级管理员'
-	// }
-	// ctx.body('admin/index', {
-	// 	username: ctx.session.user.username,
-	// 	isSuper: isSuper
-	// });
-	const contentText = await fs.readFile('./views/admin/index.html', 'utf-8')
-		.catch(err => ctx.throw(500, '服务器内部错误'))
-	ctx.body = contentText
+ // const contentText = await fs.readFile('./views/admin/index.html', 'utf-8')
+ //    .catch(err => ctx.throw(500, '服务器内部错误'))
+ //  ctx.body = contentText
+     await ctx.render('admin/index',{username:"15591805655"})
 };
-
 authControll.captcha.GET = async ctx =>{
 
   const captcha = svgCaptcha.create({
@@ -101,6 +88,45 @@ authControll.captcha.GET = async ctx =>{
   ctx.status(200).send(captcha.data);
 
 }
+//注册页面
+authControll.register.GET = async ctx => {
+
+  const contentText = await fs.readFile('./views/admin/register.html', 'utf-8')
+    .catch(err => ctx.throw(500, '服务器内部错误'))
+  ctx.body = contentText
+}
+//注册接口
+authControll.register.POST = async ctx => {
+    const {
+      username,
+      password
+    } = ctx.request.body
+
+ let newUser= new Login(
+                    {
+                        username:username,
+                        password:password
+                    }
+                );
+    const auth = await newUser.save()
+      .catch(err => ctx.throw(500, '服务器内部错误'))
+    if (auth) {
+
+      handleSuccess({
+        ctx,
+        message: "注册成功"
+      });
+    } else {
+
+      handleError({
+        ctx,
+        message: "注册失败"
+      })
+    }
+
+}
+
 exports.login = ctx => handleRequest({ ctx,controller: authControll.login})
 exports.admin = ctx => handleRequest({ ctx,controller: authControll.admin})
 exports.captcha = ctx => handleRequest({ ctx,controller: authControll.captcha})
+exports.register = ctx => handleRequest({ ctx,controller: authControll.register})

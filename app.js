@@ -28,7 +28,8 @@ app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
 
 app.use(views(__dirname + '/views', {
-  extension: 'pug'
+    map: { html: 'ejs' },//html后缀使用引擎
+    default: "pug"//render不提供后缀名时
 }))
 
 // logger
