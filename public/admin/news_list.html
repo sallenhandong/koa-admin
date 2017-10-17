@@ -73,10 +73,10 @@
 			$('#tabContent').on('click', '.layui-btn-normal', function() {
 				var obj = $(this);
 				var id = obj.parents('tr').attr('id');
-				$.post("/admin/news_content",{id:id},function(result){
-					if(result.status==="success"){
-						var content=result.data;
-						//驾驶证信息弹窗
+				$.post("/news_content",{id:id},function(result){
+					if(result.code === 1){
+						var content=result.result.data;
+						//弹窗
 						layer.open({
 							type: 1 //Page层类型
 							,area: ['1000px', '800px']
@@ -105,7 +105,7 @@
 					shade: false
 				}, function(index) {
 
-					$.post("/admin/news_del",{id:id},function(result){
+					$.post("/news_del",{id:id},function(result){
 						if(result.status==="success"){
 							$(obj).parents("tr").remove(); //删除方法
 							layer.msg('已删除!', {
@@ -126,11 +126,15 @@
 
 			//从后台获取数据函数，获取页数curr的数据
 			function getData(curr){
-				$.post("/admin/get_news",{curr:curr},function(result){
+				$.post("/get_news",{curr:curr},function(result){
+
+				console.log(result + result.result.data + result.result.pages)
+
+
 					//拼接html内容
 					var tabContent="";
 					//获取后台json数据
-					var mydata=result.data;
+					var mydata=result.result.data;
 
 
 					for(var i=0;i<mydata.length;i++){

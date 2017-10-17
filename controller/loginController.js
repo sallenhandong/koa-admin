@@ -70,7 +70,7 @@ authControll.admin.GET = async ctx => {
  // const contentText = await fs.readFile('./views/admin/index.html', 'utf-8')
  //    .catch(err => ctx.throw(500, '服务器内部错误'))
  //  ctx.body = contentText
-     await ctx.render('admin/index',{username:"15591805655"})
+     await ctx.render('admin/index',{username:"15591805655",title:"salen博客后台管理"})
 };
 authControll.captcha.GET = async ctx =>{
 

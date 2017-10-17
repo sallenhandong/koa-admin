@@ -1,62 +1,38 @@
 var navs = [{
-	"title": "管理员管理",
+	"title": "我的面板",
 	"icon": "fa-cubes",
 	"spread": true,
-	"children": [{
-		"title": "管理员列表",
-		"icon": "&#xe641;",
-		"href": "admin_list.html"
-	}, {
-		"title": "添加管理员",
-		"icon": "&#xe63c;",
-		"href": "add_admin.html"
-	}]
+	"children": []
 }, {
-	"title": "新闻中心",
+	"title": "文章管理",
 	"icon": "fa-cogs",
 	"spread": true,
 	"children": [{
-		"title": "新闻列表",
+		"title": "文章列表",
 		"icon": "fa-table",
 		"href": "news_list.html"
 	}, {
-		"title": "添加新闻",
+		"title": "发布文章",
 		"icon": "fa-navicon",
 		"href": "add_news.html"
 	}]
 }, {
-	"title": "人力资源",
+	"title": "文章标签",
 	"icon": "&#x1002;",
 	"spread": true,
 	"children": [{
-		"title": "招聘列表",
+		"title": "标签列表",
 		"icon": "fa-check-square-o",
 		"href": "recruit_list.html"
 	},{
-		"title": "添加招聘",
+		"title": "添加标签",
 		"icon": "fa-qq",
 		"href": "add_recruit.html"
-	},{
-		"title": "离职公示列表",
-		"icon": "fa-github",
-		"href": "quit_notice_list.html"
-	},{
-		"title": "添加离职公示",
-		"icon": "&#xe609",
-		"href": "add_quit_notice.html"
 	}]
 },
 	{
-		"title": "活动",
+		"title": "全局设置",
 		"icon": "&#x1002;",
 		"spread": true,
-		"children": [{
-			"title": "活動列表",
-			"icon": "fa-check-square-o",
-			"href": "activity_list.html"
-		},{
-			"title": "添加活動",
-			"icon": "fa-qq",
-			"href": "add_activityList.html"
-		},]
+		"children": []
 	}];

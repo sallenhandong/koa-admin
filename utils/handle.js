@@ -3,7 +3,6 @@
 exports.handleRequest = ({ ctx, controller }) => {
 	const method = ctx.request.method
 	const support = !!controller[method]
-	console.log('异步加载文件')
 	if (support) return controller[method](ctx)
 	else return ctx.body = { code: 0, message: '不支持请求类型' }
 }
